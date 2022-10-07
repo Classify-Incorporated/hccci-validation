@@ -3,6 +3,8 @@
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\Usermanagement\RoleController;
 use App\Http\Controllers\VerifyDocument;
 use App\Models\Form\ReturnSlip\ReturnSlip;
@@ -30,7 +32,13 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', App\Http\Livewire\Dashboard\View::class)->name('dashboard');
+    Route::get('document/create', App\Http\Livewire\Dashboard\Create::class)->name('document.create');
+    Route::post('/document/store', [DocumentController::class, 'store'])->name('document.store');
+
+    Route::get('/document/type', App\Http\Livewire\Document\View::class)->name('document.type');
+    Route::post('/document/type/store', [DocumentTypeController::class, 'store'])->name('document.type.store');
     Route::get('users', App\Http\Livewire\Usermanagement\Index::class)->name('users');
     Route::get('user/show/{data}', App\Http\Livewire\Usermanagement\Show::class)->name('user.show');
     Route::get('user/create', App\Http\Livewire\Usermanagement\Create::class)->name('user.create');
