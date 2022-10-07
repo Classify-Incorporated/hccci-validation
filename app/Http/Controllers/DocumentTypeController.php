@@ -38,6 +38,7 @@ class DocumentTypeController extends Controller
     public function store(DocumentTypeRequest $request)
     {
         DocumentType::create($request->validated());
+        
         return to_route('document.type');
     }
 
