@@ -11,6 +11,6 @@ class DocumentController extends Controller
 {
     public function store(DocumentRequest $request){
         Document::create($request->validated());
-        return to_route('dashboard');
+        return to_route('dashboard')->with('message','Data added Successfully');
     }
 }

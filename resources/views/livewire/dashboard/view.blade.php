@@ -33,7 +33,15 @@
             </div>
         </div>
     </div>
-
+    @if (Session::has('message'))
+    <script>    
+    toastr.options =
+        {
+        "closeButton" : true,
+        "progressBar" : true
+        }
+        toastr.success("{{ session('message') }}");</script>
+    @endif
     <div class="container-xl">
         <div class="page-body">
             <div class="card">
@@ -134,7 +142,11 @@
                                 <td data-label="Name">
                                     <div class="d-flex py-1 align-items-center">
                                         <div class="flex-fill">
-                                            <div class="font-weight-medium">{{$document->status}}</div>
+                                            @if ($document->status === 'Active')
+                                                <div class="font-weight-medium text-success">Active</div>
+                                            @else
+                                            <div class="font-weight-medium text-warning">Deactivated</div>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
@@ -164,6 +176,10 @@
                             @endif
                         </tbody>
                     </table>
+                </div>
+                <div class="card-footer d-flex align-items-center ms-auto">
+                    {{ $data->withQueryString()->links('pagination::bootstrap-5')}}
+                    {{-- {{ $data->withQueryString()->links()}} --}}
                 </div>
             </div>     
         </div>

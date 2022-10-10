@@ -9,7 +9,8 @@ class View extends Component
 {
     public function render()
     {
-        $document = DocumentType::all();
+        $document = DocumentType::select('*')
+        ->orderBy('id')->paginate(10);
         return view('livewire.document.view',compact('document'));
     }
 }
