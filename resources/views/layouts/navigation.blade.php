@@ -22,14 +22,18 @@
                             </a>
                         </li>
 
-                        <li class="nav-item {{ Request::is('document/type') ? 'active' : '' }}">
+                        <li class="nav-item {{ Request::is('document-type') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('document.type') }}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-horizontal" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-list" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M16 5v4a1 1 0 0 0 1 1h4"></path>
-                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2 -2v-7l-5 -5h-11a2 2 0 0 0 -2 2z"></path>
-                                     </svg>
+                                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"></path>
+                                        <rect x="9" y="3" width="6" height="4" rx="2"></rect>
+                                        <line x1="9" y1="12" x2="9.01" y2="12"></line>
+                                        <line x1="13" y1="12" x2="15" y2="12"></line>
+                                        <line x1="9" y1="16" x2="9.01" y2="16"></line>
+                                        <line x1="13" y1="16" x2="15" y2="16"></line>
+                                    </svg>
                                 </span>
                                 <span class="nav-link-title">
                                     Document Type

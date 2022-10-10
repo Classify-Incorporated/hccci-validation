@@ -32,15 +32,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', App\Http\Livewire\Dashboard\View::class)->name('dashboard');
-    Route::get('document/create', App\Http\Livewire\Dashboard\Create::class)->name('document.create');
-    Route::post('/document/store', [DocumentController::class, 'store'])->name('document.store');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/document/type', App\Http\Livewire\Document\View::class)->name('document.type');
-    Route::post('/document/type/store', [DocumentTypeController::class, 'store'])->name('document.type.store');
-
-    
     Route::get('users', App\Http\Livewire\Usermanagement\Index::class)->name('users');
     Route::get('user/show/{data}', App\Http\Livewire\Usermanagement\Show::class)->name('user.show');
     Route::get('user/create', App\Http\Livewire\Usermanagement\Create::class)->name('user.create');
@@ -59,6 +52,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('activity/details/{activity}', App\Http\Livewire\Log\Activity\Show::class)->name('activity.details');
 
     Route::get('notifications', [NotificationController::class, 'index'])->name('notification.index');
+});
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('document-type', App\Http\Livewire\Document\Component\DocumentType\Index::class)->name('document.type');
 });
 
 Route::get('verify/key={data}', [VerifyDocument::class, 'verify_document'])->name('verify.document');

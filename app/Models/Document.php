@@ -9,10 +9,7 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-    }
+    protected $guarded = [
+        'id', 'created_at', 'updated_at'
+    ];
 }
