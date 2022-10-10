@@ -57,7 +57,7 @@
                                 <line x1="21" y1="21" x2="15" y2="15"></line>
                             </svg>
                         </span>
-                        <input wire:model="search" type="search" class="form-control" placeholder="Document...">
+                        <input wire:model="search" type="search" class="form-control" placeholder="Document Type...">
                     </div>
                 </div>
                 <div class="table-responsive">
