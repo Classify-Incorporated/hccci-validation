@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/document/type', App\Http\Livewire\Document\View::class)->name('document.type');
     Route::post('/document/type/store', [DocumentTypeController::class, 'store'])->name('document.type.store');
+
+    
     Route::get('users', App\Http\Livewire\Usermanagement\Index::class)->name('users');
     Route::get('user/show/{data}', App\Http\Livewire\Usermanagement\Show::class)->name('user.show');
     Route::get('user/create', App\Http\Livewire\Usermanagement\Create::class)->name('user.create');
@@ -60,8 +62,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('verify/key={data}', [VerifyDocument::class, 'verify_document'])->name('verify.document');
-
-// Begin handover process
-Route::get('verify-employee/{data}', App\Http\Livewire\Verify\Employee\Index::class)->name('verify.employee');
 
 require __DIR__.'/auth.php';
