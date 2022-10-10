@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->string('document_series_no');
             $table->string('control_number');
             $table->string('department_code');
             $table->string('revision_number');
