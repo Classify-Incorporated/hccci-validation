@@ -73,7 +73,7 @@
                                 <th>Approved By</th>
                                 <th>To</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -151,7 +151,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <div class="dropdown">
                                         <button class="btn dropdown-toggle align-text-top"
                                             data-bs-toggle="dropdown">
@@ -171,7 +171,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                             @endforeach
                             @endif
@@ -179,8 +179,8 @@
                     </table>
                 </div>
                 <div class="card-footer d-flex align-items-center ms-auto">
-                    {{-- {{ $data->withQueryString()->links('pagination::bootstrap-5')}} --}}
-                    {{ $data->withQueryString()->links()}}
+                    {{ $data->withQueryString()->links('pagination::bootstrap-5')}}
+                    {{-- {{ $data->withQueryString()->links()}} --}}
                 </div>
             </div>     
         </div>

@@ -46,34 +46,30 @@
                                         <table class="table table-vcenter card-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Department Name</th>
-                                                    <th>Department Code</th>
+                                                    <th>Document Name</th>
                                                     <th class="w-1"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @foreach ($data as $item)
+                                                @foreach ($document as $item)
                                                     <tr>
-                                                        <td>{{ $item->department }}</td>
-                                                        <td class="text-muted">
-                                                            {{ $item->department_code }}
-                                                        </td>
+                                                        <td>{{ $item->department_name }}</td>
                                                         <td>
                                                             <a href="#"
                                                                 wire:click="openDeleteModal({{ $item->id }})">Delete</a>
                                                         </td>
                                                     </tr>
-                                                @endforeach --}}
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center ms-auto">
-                                    {{-- {{ $data->links() }} --}}
+                                <div class="card-footer d-flex align-items-center ms-auto">
+                                    {{ $document->withQueryString()->links('pagination::bootstrap-5')}}
+                                    {{-- {{ $document->withQueryString()->links()}} --}}
                                 </div>
                             </div>
-                        {{-- @else --}}
-                            <div class="card">
+                            {{-- <div class="card">
                                 <div class="empty">
                                     <div class="empty-img"><img
                                             src='{{ asset('assets/images/svg-icons/undraw_printing_invoices_5r4r.svg') }}'
@@ -84,24 +80,23 @@
                                         Try adjusting your search or filter to find what you're looking for.
                                     </p>
                                 </div>
-                            </div>
-                        {{-- @endif --}}
+                            </div> --}}
                     </div>
             
                     <div class="col-lg-5">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Add Department</h3>
-                                <form wire:submit.prevent="create">
+                                <h3 class="card-title">Add Document</h3>
+                                <form wire:submit.prevent="submit">
                                     <div class="form-group mb-3 ">
-                                        <label class="form-label required">Department name</label>
+                                        <label class="form-label required">Document name</label>
                                         <div>
                                             <input type="text" class="form-control" aria-describedby="emailHelp"
-                                                placeholder="Enter department name" name="department"
-                                                wire:model.debounce.800ms="department">
-                                            @error('department')
+                                                placeholder="Enter document name"
+                                        >
+                                            {{-- @error('department')
                                                 <small class="form-hint bg-red-lt">{{ $message }}</small>
-                                            @enderror
+                                            @enderror --}}
                                         </div>
                                     </div>
                                     <div class="form-footer">
