@@ -58,7 +58,7 @@
                                 <line x1="21" y1="21" x2="15" y2="15"></line>
                             </svg>
                         </span>
-                        <input wire:model="search" type="search" class="form-control" placeholder="Document Type..." value="sasdasdsass">
+                        <input wire:model="search" type="search" class="form-control" placeholder="Document Type..." >
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -87,7 +87,7 @@
                                 <td data-label="Name">
                                     <div class="d-flex py-1 align-items-center">
                                         <div class="flex-fill">
-                                            <div class="font-weight-medium">{{$document->id}}
+                                            <div class="font-weight-medium">{{$document->document_series_no}}
                                             </div>
                                         </div>
                                     </div>
