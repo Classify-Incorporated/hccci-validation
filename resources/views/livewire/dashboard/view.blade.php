@@ -42,6 +42,7 @@
         }
         toastr.success("{{ session('message') }}");</script>
     @endif
+
     <div class="container-xl">
         <div class="page-body">
             <div class="card">
@@ -57,7 +58,7 @@
                                 <line x1="21" y1="21" x2="15" y2="15"></line>
                             </svg>
                         </span>
-                        <input wire:model="search" type="search" class="form-control" placeholder="Document Type...">
+                        <input wire:model="search" type="search" class="form-control" placeholder="Document Type..." value="sasdasdsass">
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -178,8 +179,8 @@
                     </table>
                 </div>
                 <div class="card-footer d-flex align-items-center ms-auto">
-                    {{ $data->withQueryString()->links('pagination::bootstrap-5')}}
-                    {{-- {{ $data->withQueryString()->links()}} --}}
+                    {{-- {{ $data->withQueryString()->links('pagination::bootstrap-5')}} --}}
+                    {{ $data->withQueryString()->links()}}
                 </div>
             </div>     
         </div>

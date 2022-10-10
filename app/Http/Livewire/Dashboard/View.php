@@ -9,12 +9,13 @@ class View extends Component
 {
     use WithPagination;
     public $search;
+    protected $paginationTheme = 'bootstrap';
     public function render()
     {
         $search = '%'.$this->search.'%';
         $data = Document::select('*')->where([
-            ['document_type','like',$search]
-        ])->orderBy('id')->paginate(6);
+            ['id','like',$search]
+        ])->orderBy('id')->paginate(10);
         return view('livewire.dashboard.view',compact('data'));
     }
 }
