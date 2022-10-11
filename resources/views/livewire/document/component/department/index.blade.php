@@ -41,7 +41,7 @@
                             
                             <table class="table table-vcenter card-table table-striped">
                                 <div class="p-3">
-                                    <label class="form-label">Search Type</label>
+                                    <label class="form-label">Search Department</label>
                                     <div class="input-icon mb-3">
                                       <input type="search" wire:model="search" class="form-control" placeholder="Search…">
                                       <span class="input-icon-addon">
@@ -53,13 +53,15 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Code</th>
                                         <th class="w-1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($documents as $document)
+                                    @forelse ($departments as $department)
                                         <tr>
-                                            <td>{!! $document->name !!}</td>
+                                            <td>{{ $department->department_name }}</td>
+                                            <td>{{ $department->department_code ?? '-'}}</td>
                                             <td>
                                                 <div x-data="{ open: false }">
                                                     <div x-show="!open">
@@ -83,7 +85,7 @@
                                                     </div>
                                                     <div x-show="open">
                                                         <a href="javascript:void();"
-                                                            wire:click.prevent="delete({{ $document->id }})"
+                                                            wire:click.prevent="delete({{ $department->id }})"
                                                             @click.prevent="open = ! open">
                                                             Confirm
                                                         </a>
@@ -101,7 +103,7 @@
                                                             alt="">
                                                     </div>
                                                     <p class="empty-subtitle text-muted">
-                                                        Let's start adding your document type.
+                                                        Let's start adding your department.
                                                     </p>
                                                 </div>
                                             </div>
@@ -111,11 +113,11 @@
                                 </tbody>
                             </table>
 
-                            @empty(!$documents)
+                            @empty(!$departments)
                                 <div class="d-flex mt-4">
                                     <ul class="pagination ms-auto">
-                                        <li class="page-item {{ $documents->onFirstPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $documents->previousPageUrl() }}">
+                                        <li class="page-item {{ $departments->onFirstPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $departments->previousPageUrl() }}">
                                                 <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -127,8 +129,8 @@
                                             </a>
                                         </li>
 
-                                        <li class="page-item {{ $documents->hasMorePages() ? '' : 'disabled' }}">
-                                            <a class="page-link" href="{{ $documents->nextPageUrl() }}">
+                                        <li class="page-item {{ $departments->hasMorePages() ? '' : 'disabled' }}">
+                                            <a class="page-link" href="{{ $departments->nextPageUrl() }}">
                                                 next
                                                 <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"

@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('users', App\Http\Livewire\Usermanagement\Index::class)->name('users');
     Route::get('user/show/{data}', App\Http\Livewire\Usermanagement\Show::class)->name('user.show');
@@ -55,8 +55,13 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('dashboard', App\Http\Livewire\Dashboard\Table::class)->name('dashboard');
 
-    Route::get('document-type', App\Http\Livewire\Document\Component\DocumentType\Index::class)->name('document.type');
+    Route::get('document/create', [DocumentController::class, 'create'])->name('document.create');
+    Route::post('document/create', [DocumentController::class, 'store'])->name('document.store');
+    Route::get('document-type', App\Http\Livewire\Document\Component\DocumentType\Index::class)->name('document.index');
+
+    Route::get('department', App\Http\Livewire\Document\Component\Department\Index::class)->name('department.index');
 });
 
 Route::get('verify/key={data}', [VerifyDocument::class, 'verify_document'])->name('verify.document');

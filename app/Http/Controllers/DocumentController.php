@@ -2,49 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use \App\Http\Requests\DocumentRequest;
+use App\Models\Department;
 use App\Models\Document;
-use Carbon\Carbon;
-use DB;
+use App\Models\DocumentType;
+use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    public function store(DocumentRequest $request){
+    public function create()
+    {
+        $department_lists = Department::select('department_name')->get();
+        $document_types = DocumentType::select('name')->get();
 
-        $control        = $request->control_number;
-        $revision       = $request->revision_number;
-        $year           = $request->document_dated;
-        $formattedYear  = $year = date('Y', strtotime($year));
-        $department     = $request->department;
-        $explode        = explode(' ',trim($department));
-        $acronym = "";
-        foreach ($explode as $w) {
-            $acronym .= strtoupper($w[0]);
-        }
-        $code = "{$control}{$acronym}{$revision}{$formattedYear}";
-        // Document::create($request->validated());
-        $request->validated();
-        DB::transaction(function () use ($request,$code){
+        return view('document.create', compact('department_lists', 'document_types'));
+    }
 
-            $this->storeData = Document::create([
-                'document_series_no'        => $code,
-                'control_number'            => $request->control_number,
-                'department_code'           => $request->department_code,
-                'revision_number'           => $request->revision_number,
-                'series_number'             => $request->series_number,
-                'number_pages'              => $request->number_pages,
-                'number_copies'             => $request->number_copies,
-                'document_type'             => $request->document_type,
-                'document_dated'            => $request->document_dated,
-                'prepared_by'               => $request->prepared_by,
-                'approved_by'               => $request->approved_by,
-                'to'                        => $request->to,
-                'from'                      => $request->from,
-                'department'                => $request->department,
-                'status'                    => $request->status,
-            ]);
-        }, 1);
-        return to_route('dashboard')->with('message','Data added Successfully');
+    public function store(Request $request)
+    {
+
+        $count_document_produce = Document::where('department', $request->department)->count();
+        $get_department_code = Department::where('department_name', $request->department)->select('department_code')->first();
+
+        // Generate Document Series 
+        $control_number = $count_document_produce+1;
+        $department_code = $get_department_code->department_code;
+        $revision_number = 0;
+        $series_number = date('Y');
+        
+        $document_series_no = $control_number . $department_code . $revision_number .$series_number;
+
+        // Check if document series no produce is existing or not
+        dd($document_series_no);
+
     }
 }

@@ -22,23 +22,35 @@
                             </a>
                         </li>
 
-                        <li class="nav-item {{ Request::is('document-type') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('document.type') }}">
-                                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-list" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"></path>
-                                        <rect x="9" y="3" width="6" height="4" rx="2"></rect>
-                                        <line x1="9" y1="12" x2="9.01" y2="12"></line>
-                                        <line x1="13" y1="12" x2="15" y2="12"></line>
-                                        <line x1="9" y1="16" x2="9.01" y2="16"></line>
-                                        <line x1="13" y1="16" x2="15" y2="16"></line>
-                                    </svg>
-                                </span>
-                                <span class="nav-link-title">
-                                    Document Type
-                                </span>
+                        <li class="nav-item dropdown {{ Request::is('document-type') ? 'active' : '' }}">
+                            <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
+                              <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-list" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"></path>
+                                    <rect x="9" y="3" width="6" height="4" rx="2"></rect>
+                                    <line x1="9" y1="12" x2="9.01" y2="12"></line>
+                                    <line x1="13" y1="12" x2="15" y2="12"></line>
+                                    <line x1="9" y1="16" x2="9.01" y2="16"></line>
+                                    <line x1="13" y1="16" x2="15" y2="16"></line>
+                                </svg>
+                              </span>
+                              <span class="nav-link-title">
+                                Components
+                              </span>
                             </a>
+                            <div class="dropdown-menu">
+                              <div class="dropdown-menu-columns">
+                                <div class="dropdown-menu-column">
+                                  <a class="dropdown-item {{ Request::is('department') ? 'disabled' : '' }}" href="{{ route('department.index') }}">
+                                    Department
+                                  </a>
+                                  <a class="dropdown-item {{ Request::is('document-type') ? 'disabled' : '' }}" href="{{ route('document.index') }}">
+                                    Document Type
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
                         </li>
                     @endcan
                     @canany(['create user', 'view user'])
