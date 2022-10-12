@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('document_series_no');
             $table->string('department');
-            $table->string('revision_number');
             $table->string('document_type');
             $table->string('document_dated');
             $table->string('to');
@@ -25,6 +24,7 @@ return new class extends Migration
             $table->string('prepared_by');
             $table->string('approved_by');
             $table->string('status')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

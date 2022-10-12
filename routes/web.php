@@ -59,8 +59,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('document/create', [DocumentController::class, 'create'])->name('document.create');
     Route::post('document/create', [DocumentController::class, 'store'])->name('document.store');
+    Route::get('document/show={data}', App\Http\Livewire\Dashboard\Show::class)->name('document.show');
+    
     Route::get('document-type', App\Http\Livewire\Document\Component\DocumentType\Index::class)->name('document.index');
-
     Route::get('department', App\Http\Livewire\Document\Component\Department\Index::class)->name('department.index');
 });
 

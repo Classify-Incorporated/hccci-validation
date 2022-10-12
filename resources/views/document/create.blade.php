@@ -38,6 +38,13 @@
                                 <div class="hr-text">Document Details</div>
 
                                 <div class="form-group mb-1 row">
+                                    <label class="col-2 col-form-label required @error('date') text-danger @enderror">Date</label>
+                                    <div class="col">
+                                        <input class="form-control" placeholder="Select a date" id="datepicker-icon-prepend" value="{{ now() }}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-1 row">
                                     <label class="col-2 col-form-label required @error('department') text-danger @enderror">Department</label>
                                     
                                     <div class="col">
@@ -69,6 +76,26 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label required @error('from_person') text-danger @enderror">Source</label>
+                                    <div class="col">
+                                        <input type="text" name="from_person" class="form-control form-control-flush mt-1" autocomplete="off" placeholder="-">
+                                        @error('from_person')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label required @error('to_person') text-danger @enderror">Destination</label>
+                                    <div class="col">
+                                        <input type="text" name="to_person" class="form-control form-control-flush mt-1" autocomplete="off" placeholder="-">
+                                        @error('to_person')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="form-group mb-1 row">
                                     <label class="col-2 col-form-label required @error('prepared_by') text-danger @enderror">Prepared by</label>
                                     <div class="col">
@@ -85,26 +112,6 @@
                                     <div class="col">
                                         <input type="text" name="approved_by" class="form-control form-control-flush mt-1" autocomplete="off" placeholder="Enter person name">
                                         @error('approved_by')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-2 col-form-label required @error('to_person') text-danger @enderror">To</label>
-                                    <div class="col">
-                                        <input type="text" name="to_person" class="form-control form-control-flush mt-1" autocomplete="off" placeholder="-">
-                                        @error('to_person')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-2 col-form-label required @error('from_person') text-danger @enderror">From</label>
-                                    <div class="col">
-                                        <input type="text" name="from_person" class="form-control form-control-flush mt-1" autocomplete="off" placeholder="-">
-                                        @error('from_person')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -186,5 +193,20 @@
         });
         // @formatter:on
       </script>
+      <script>
+            // @formatter:off
+            document.addEventListener("DOMContentLoaded", function () {
+                window.Litepicker && (new Litepicker({
+                    element: document.getElementById('datepicker-icon-prepend'),
+                    buttonText: {
+                        previousMonth: `<!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>`,
+                        nextMonth: `<!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>`,
+                    },
+                }));
+            });
+            // @formatter:on
+        </script>
     @endsection
 </x-tabler-layout>

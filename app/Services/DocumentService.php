@@ -1,24 +1,38 @@
 <?php
 
 namespace App\Services;
-
-use App\Models\Form\Approval;
-use Illuminate\Support\Str;
-use App\Models\Form\ReturnSlip\ReturnSlip;
-use App\Models\Form\WithdrawalSlip\Wsdm;
-use App\Models\Form\WithdrawalSlip\Wsfa;
-use App\Models\Form\WithdrawalSlip\Wsfg;
-use App\Models\Form\WithdrawalSlip\Wsma;
-use App\Models\Form\WithdrawalSlip\Wsmi;
-use App\Models\Form\WithdrawalSlip\Wsmro;
-use App\Models\Form\Memorandum;
-use App\Models\Form\ServiceCall;
-use Exception;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Throwable;
+use App\Models\Department;
+use App\Models\Document;
 
 class DocumentService
 {
-    #
+    
+    public static function generate_document_series($department) 
+    {
+        $revision_number = -1;
+
+        do {
+
+            $count_document_produce = Document::where('department', $department)->count();
+            $get_department_code = Department::where('department_name', $department)->select('department_code')->first();
+
+            // Generate Document Series 
+            $control_number = sprintf("%03d", $count_document_produce + 1);
+            $department_code = $get_department_code->department_code;
+            $revision_number++;
+            $series_number = date('Y');
+
+            $document_series = $control_number . $department_code . $revision_number .$series_number;
+
+        } while (self::validate_document_series($document_series));
+
+        return $document_series;
+    }
+
+    public static function validate_document_series($document_series)
+    {
+        $data = Document::where('document_series_no', $document_series)->first();
+
+        return ($data) ? true : false;
+    }
 }

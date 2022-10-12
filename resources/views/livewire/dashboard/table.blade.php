@@ -21,8 +21,44 @@
                     <div class="btn-list">
                         <span class="d-none d-sm-inline">
                             <input type="search"
-                                class="form-control d-inline-block w-9 me-3 {{ empty($datas) ? 'd-none' : '' }}"
+                                class="form-control d-inline-block w-9 me-3 {{ empty($documents) ? 'd-none' : '' }}"
                                 wire:model="search" placeholder="Search document series..." />
+                        </span>
+                        <span class="d-none d-sm-inline">
+                            <a href="{{ route('document.create') }}" class="btn btn-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler-playlist-add" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M19 8h-14"></path>
+                                    <path d="M5 12h9"></path>
+                                    <path d="M11 16h-6"></path>
+                                    <path d="M15 16h6"></path>
+                                    <path d="M18 13v6"></path>
+                                </svg>
+                                New
+                            </a>
+                    
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-white btn-icon" aria-label="Button">
+                                  <!-- Download SVG icon from http://tabler-icons.io/i/bold -->
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"></path>
+                                    <polyline points="9 15 12 12 15 15"></polyline>
+                                    <line x1="12" y1="12" x2="12" y2="21"></line>
+                                 </svg>
+                                </a>
+                                <a href="#" class="btn btn-white btn-icon" aria-label="Button">
+                                  <!-- Download SVG icon from http://tabler-icons.io/i/italic -->
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-download" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M19 18a3.5 3.5 0 0 0 0 -7h-1a5 4.5 0 0 0 -11 -2a4.6 4.4 0 0 0 -2.1 8.4"></path>
+                                    <line x1="12" y1="13" x2="12" y2="22"></line>
+                                    <polyline points="9 19 12 22 15 19"></polyline>
+                                 </svg>
+                                </a>
+                            </div>
                         </span>
                     </div>
                 </div>
@@ -38,39 +74,29 @@
 
                     <div class="card">
                         <div class="card-body mb-4">
-                            @if (!empty($datas))
+                            @if (!empty($documents))
                                 <div id="table-default" class="table-responsive" style="min-height: 350px">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th><button class="table-sort" data-sort="sort-series">Document Series
-                                                        No</button></th>
-                                                <th><button class="table-sort" data-sort="sort-city">Customer
-                                                        Name</button></th>
-                                                <th><button class="table-sort" data-sort="sort-score">Prepared
-                                                        by</button>
-                                                </th>
-                                                <th><button class="table-sort" data-sort="sort-date">Approved
-                                                        by</button>
-                                                </th>
-                                                <th><button class="table-sort" data-sort="sort-quantity">Released
-                                                        by</button></th>
-                                                <th>Current Department</th>
+                                                <th>Document Series No</th>
+                                                <th>Department</th>
+                                                <th>Document Type</th>
+                                                <th>Prepared by</th>
+                                                <th>Approved by</th>
                                                 <th class="w-1"></th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-tbody">
-                                            @forelse($datas as $data)
+                                            @forelse($documents as $data)
                                                 <tr>
                                                     <a href="google.com">
-                                                        <td class="sort-series">{{ $data->document_series_no }}</td>
-                                                        <td class="sort-city">{{ ucwords($data->customer_name) }}</td>
-                                                        <td class="sort-score">{{ $data->prepared_by }}</td>
-                                                        <td class="sort-date" data-date="1628071164">
-                                                            {{ $data->approved_by }}
-                                                        </td>
-                                                        <td class="sort-quantity">{{ $data->released_by }}</td>
-                                                        <td class="sort-progress">{{ $data->current_department ?? '-' }}</td>
+                                                        <td>@if($data->isNotActive())<span class="badge bg-danger me-1"></span>@endif
+                                                            {{ $data->document_series_no }}</td>
+                                                        <td>{{ $data->department }}</td>
+                                                        <td>{{ $data->document_type }}</td>
+                                                        <td>{{ $data->prepared_by }}</td>
+                                                        <td>{{ $data->approved_by }}</td>
                                                         <td>
                                                             <div class="btn-list btn-ghost-primary flex-nowrap">
                                                                 <div class="dropdown">
@@ -80,100 +106,70 @@
                                                                     </button>
                                                                     <div class="dropdown-menu dropdown-menu-end"
                                                                         style="">
-                                                                        @can('view mi')
-                                                                            <a class="dropdown-item"
-                                                                                href="{{ route('mi.show', $data) }}">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    class="icon me-2 icon-tabler icon-tabler-file-description"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" stroke-width="2"
-                                                                                    stroke="currentColor" fill="none"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round">
-                                                                                    <path stroke="none" d="M0 0h24v24H0z"
-                                                                                        fill="none"></path>
-                                                                                    <path d="M14 3v4a1 1 0 0 0 1 1h4">
-                                                                                    </path>
-                                                                                    <path
-                                                                                        d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
-                                                                                    </path>
-                                                                                    <path d="M9 17h6"></path>
-                                                                                    <path d="M9 13h6"></path>
-                                                                                </svg>
-                                                                                Details
-                                                                            </a>
-                                                                        @endcan
-
-                                                                        @can('archive mi')
-                                                                            <button class="dropdown-item" type="button"
-                                                                                wire:click="archive({{ $data->id }})">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    class="icon me-2 icon-tabler icon-tabler-archive"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" stroke-width="2"
-                                                                                    stroke="currentColor" fill="none"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round">
-                                                                                    <path stroke="none" d="M0 0h24v24H0z"
-                                                                                        fill="none"></path>
-                                                                                    <rect x="3" y="4"
-                                                                                        width="18" height="4"
-                                                                                        rx="2"></rect>
-                                                                                    <path
-                                                                                        d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10">
-                                                                                    </path>
-                                                                                    <line x1="10" y1="12"
-                                                                                        x2="14" y2="12">
-                                                                                    </line>
-                                                                                </svg>
-                                                                                Archive
-                                                                            </button>
-                                                                        @endcan
-
-                                                                        @can('create rs')
-                                                                            <a class="dropdown-item"
-                                                                                href="{{ route('rs.create', $data->document_series_no) }}">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    class="icon me-2 icon-tabler icon-tabler-receipt-refund"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" stroke-width="2"
-                                                                                    stroke="currentColor" fill="none"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round">
-                                                                                    <path stroke="none" d="M0 0h24v24H0z"
-                                                                                        fill="none"></path>
-                                                                                    <path
-                                                                                        d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2">
-                                                                                    </path>
-                                                                                    <path
-                                                                                        d="M15 14v-2a2 2 0 0 0 -2 -2h-4l2 -2m0 4l-2 -2">
-                                                                                    </path>
-                                                                                </svg>
-                                                                                New return item
-                                                                            </a>
-                                                                        @endcan
-                                                                        @can('delete mi')
-                                                                            <button class="dropdown-item" type="button"
-                                                                                wire:click="delete({{ $data->id }})">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    class="icon me-2 icon-tabler icon-tabler-file-x"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" stroke-width="2"
-                                                                                    stroke="currentColor" fill="none"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round">
-                                                                                    <path stroke="none" d="M0 0h24v24H0z"
-                                                                                        fill="none"></path>
-                                                                                    <path d="M14 3v4a1 1 0 0 0 1 1h4">
-                                                                                    </path>
-                                                                                    <path
-                                                                                        d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
-                                                                                    </path>
-                                                                                    <path d="M10 12l4 4m0 -4l-4 4"></path>
-                                                                                </svg>
-                                                                                Delete
-                                                                            </button>
-                                                                        @endcan
+                                                                        
+                                                                        <a class="dropdown-item"
+                                                                            href="{{ route('document.show', $data) }}">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                class="icon me-2 icon-tabler icon-tabler-file-description"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" stroke-width="2"
+                                                                                stroke="currentColor" fill="none"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round">
+                                                                                <path stroke="none" d="M0 0h24v24H0z"
+                                                                                    fill="none"></path>
+                                                                                <path d="M14 3v4a1 1 0 0 0 1 1h4">
+                                                                                </path>
+                                                                                <path
+                                                                                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                                                                </path>
+                                                                                <path d="M9 17h6"></path>
+                                                                                <path d="M9 13h6"></path>
+                                                                            </svg>
+                                                                            Details
+                                                                        </a>
+                                                                    
+                                                                        <button class="dropdown-item" type="button"
+                                                                            wire:click="generate_qr({{ $data }})">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 icon-tabler-qrcode" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                                <rect x="4" y="4" width="6" height="6" rx="1"></rect>
+                                                                                <line x1="7" y1="17" x2="7" y2="17.01"></line>
+                                                                                <rect x="14" y="4" width="6" height="6" rx="1"></rect>
+                                                                                <line x1="7" y1="7" x2="7" y2="7.01"></line>
+                                                                                <rect x="4" y="14" width="6" height="6" rx="1"></rect>
+                                                                                <line x1="17" y1="7" x2="17" y2="7.01"></line>
+                                                                                <line x1="14" y1="14" x2="17" y2="14"></line>
+                                                                                <line x1="20" y1="14" x2="20" y2="14.01"></line>
+                                                                                <line x1="14" y1="14" x2="14" y2="17"></line>
+                                                                                <line x1="14" y1="20" x2="17" y2="20"></line>
+                                                                                <line x1="17" y1="17" x2="20" y2="17"></line>
+                                                                                <line x1="20" y1="17" x2="20" y2="20"></line>
+                                                                             </svg>
+                                                                            Generate QR
+                                                                        </button>
+                                                                    
+                                                                        <button class="dropdown-item" type="button"
+                                                                            wire:click="delete({{ $data->id }})">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                class="icon me-2 icon-tabler icon-tabler-file-x"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" stroke-width="2"
+                                                                                stroke="currentColor" fill="none"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round">
+                                                                                <path stroke="none" d="M0 0h24v24H0z"
+                                                                                    fill="none"></path>
+                                                                                <path d="M14 3v4a1 1 0 0 0 1 1h4">
+                                                                                </path>
+                                                                                <path
+                                                                                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                                                                </path>
+                                                                                <path d="M10 12l4 4m0 -4l-4 4"></path>
+                                                                            </svg>
+                                                                            Delete
+                                                                        </button>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -182,7 +178,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="7">
+                                                    <td colspan="6">
                                                         <div class="container-xl d-flex flex-column justify-content-center">
                                                             <div class="empty">
                                                                 <div class="empty-img"><img
@@ -190,27 +186,26 @@
                                                                         alt="">
                                                                 </div>
                                                                 <p class="empty-title">No results found</p>
-                                                    
-                                                                @can($permission)
-                                                                    <p class="empty-subtitle text-muted">
-                                                                        Try adjusting your search or filter to find what
-                                                                        you're
-                                                                        looking for.
-                                                                    </p>
-                                                                    <div class="empty-action">
-                                                                        <a href="{{ $route }}" class="btn btn-primary">
-                                                                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                                                                stroke-linejoin="round">
-                                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                                <line x1="12" y1="5" x2="12" y2="19" />
-                                                                                <line x1="5" y1="12" x2="19" y2="12" />
-                                                                            </svg>
-                                                                            {{ $buttonText }}
-                                                                        </a>
-                                                                    </div>
-                                                                @endcan
+
+                                                                <p class="empty-subtitle text-muted">
+                                                                    Try adjusting your search or filter to find what
+                                                                    you're
+                                                                    looking for.
+                                                                </p>
+                                                                <div class="empty-action">
+                                                                    <a href="{{ route('document.create') }}" class="btn btn-primary">
+                                                                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                                                            stroke-linejoin="round">
+                                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                            <line x1="12" y1="5" x2="12" y2="19" />
+                                                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                                                        </svg>
+                                                                        Create
+                                                                    </a>
+                                                                </div>
+                                                               
                                                             </div>
                                                         </div>
                                                     </td>
@@ -221,7 +216,7 @@
                                 </div>
                             @endif
 
-                            @if (empty($datas))
+                            @if (empty($documents))
                                 <div class="container-xl d-flex flex-column justify-content-center">
                                     <div class="empty">
                                         <div class="empty-img"><img
@@ -255,11 +250,11 @@
                         </div>
                     </div>
                 </div>
-                @if (!empty($datas))
+                @if (!empty($documents))
                     <div class="d-flex mt-4">
                         <ul class="pagination ms-auto">
-                            <li class="page-item {{ $datas->onFirstPage() ? 'disabled' : '' }}">
-                                <a class="page-link" href="{{ $datas->previousPageUrl() }}">
+                            <li class="page-item {{ $documents->onFirstPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $documents->previousPageUrl() }}">
                                     <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
                                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -271,8 +266,8 @@
                                 </a>
                             </li>
 
-                            <li class="page-item {{ $datas->hasMorePages() ? '' : 'disabled' }}">
-                                <a class="page-link" href="{{ $datas->nextPageUrl() }}">
+                            <li class="page-item {{ $documents->hasMorePages() ? '' : 'disabled' }}">
+                                <a class="page-link" href="{{ $documents->nextPageUrl() }}">
                                     next
                                     <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
