@@ -25,21 +25,23 @@
                                 wire:model="search" placeholder="Search document series..." />
                         </span>
                         <span class="d-none d-sm-inline">
-                            <a href="{{ route('document.create') }}" class="btn btn-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler-playlist-add" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M19 8h-14"></path>
-                                    <path d="M5 12h9"></path>
-                                    <path d="M11 16h-6"></path>
-                                    <path d="M15 16h6"></path>
-                                    <path d="M18 13v6"></path>
-                                </svg>
-                                New
-                            </a>
+                            @can('create document')
+                                <a href="{{ route('document.create') }}" class="btn btn-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler-playlist-add" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M19 8h-14"></path>
+                                        <path d="M5 12h9"></path>
+                                        <path d="M11 16h-6"></path>
+                                        <path d="M15 16h6"></path>
+                                        <path d="M18 13v6"></path>
+                                    </svg>
+                                    New
+                                </a>
+                            @endcan
                     
-                            <div class="btn-group">
+                            {{-- <div class="btn-group">
                                 <a href="#" class="btn btn-white btn-icon" aria-label="Button">
                                   <!-- Download SVG icon from http://tabler-icons.io/i/bold -->
                                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -58,7 +60,7 @@
                                     <polyline points="9 19 12 22 15 19"></polyline>
                                  </svg>
                                 </a>
-                            </div>
+                            </div> --}}
                         </span>
                     </div>
                 </div>
@@ -107,49 +109,53 @@
                                                                     <div class="dropdown-menu dropdown-menu-end"
                                                                         style="">
                                                                         
-                                                                        <a class="dropdown-item"
-                                                                            href="{{ route('document.show', $data) }}">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                class="icon me-2 icon-tabler icon-tabler-file-description"
-                                                                                width="24" height="24"
-                                                                                viewBox="0 0 24 24" stroke-width="2"
-                                                                                stroke="currentColor" fill="none"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round">
-                                                                                <path stroke="none" d="M0 0h24v24H0z"
-                                                                                    fill="none"></path>
-                                                                                <path d="M14 3v4a1 1 0 0 0 1 1h4">
-                                                                                </path>
-                                                                                <path
-                                                                                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
-                                                                                </path>
-                                                                                <path d="M9 17h6"></path>
-                                                                                <path d="M9 13h6"></path>
-                                                                            </svg>
-                                                                            Details
-                                                                        </a>
+                                                                        @can('view document')
+                                                                            <a class="dropdown-item"
+                                                                                href="{{ route('document.show', $data) }}">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    class="icon me-2 icon-tabler icon-tabler-file-description"
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" stroke-width="2"
+                                                                                    stroke="currentColor" fill="none"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round">
+                                                                                    <path stroke="none" d="M0 0h24v24H0z"
+                                                                                        fill="none"></path>
+                                                                                    <path d="M14 3v4a1 1 0 0 0 1 1h4">
+                                                                                    </path>
+                                                                                    <path
+                                                                                        d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                                                                    </path>
+                                                                                    <path d="M9 17h6"></path>
+                                                                                    <path d="M9 13h6"></path>
+                                                                                </svg>
+                                                                                Details
+                                                                            </a>
+                                                                        @endcan
                                                                     
-                                                                        <button class="dropdown-item" type="button"
-                                                                            wire:click="generate_qr({{ $data }})">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 icon-tabler-qrcode" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                                <rect x="4" y="4" width="6" height="6" rx="1"></rect>
-                                                                                <line x1="7" y1="17" x2="7" y2="17.01"></line>
-                                                                                <rect x="14" y="4" width="6" height="6" rx="1"></rect>
-                                                                                <line x1="7" y1="7" x2="7" y2="7.01"></line>
-                                                                                <rect x="4" y="14" width="6" height="6" rx="1"></rect>
-                                                                                <line x1="17" y1="7" x2="17" y2="7.01"></line>
-                                                                                <line x1="14" y1="14" x2="17" y2="14"></line>
-                                                                                <line x1="20" y1="14" x2="20" y2="14.01"></line>
-                                                                                <line x1="14" y1="14" x2="14" y2="17"></line>
-                                                                                <line x1="14" y1="20" x2="17" y2="20"></line>
-                                                                                <line x1="17" y1="17" x2="20" y2="17"></line>
-                                                                                <line x1="20" y1="17" x2="20" y2="20"></line>
-                                                                             </svg>
-                                                                            Generate QR
-                                                                        </button>
+                                                                        @can('generate qr')
+                                                                            <button class="dropdown-item" type="button"
+                                                                                wire:click="generate_qr({{ $data }})">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 icon-tabler-qrcode" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                                    <rect x="4" y="4" width="6" height="6" rx="1"></rect>
+                                                                                    <line x1="7" y1="17" x2="7" y2="17.01"></line>
+                                                                                    <rect x="14" y="4" width="6" height="6" rx="1"></rect>
+                                                                                    <line x1="7" y1="7" x2="7" y2="7.01"></line>
+                                                                                    <rect x="4" y="14" width="6" height="6" rx="1"></rect>
+                                                                                    <line x1="17" y1="7" x2="17" y2="7.01"></line>
+                                                                                    <line x1="14" y1="14" x2="17" y2="14"></line>
+                                                                                    <line x1="20" y1="14" x2="20" y2="14.01"></line>
+                                                                                    <line x1="14" y1="14" x2="14" y2="17"></line>
+                                                                                    <line x1="14" y1="20" x2="17" y2="20"></line>
+                                                                                    <line x1="17" y1="17" x2="20" y2="17"></line>
+                                                                                    <line x1="20" y1="17" x2="20" y2="20"></line>
+                                                                                </svg>
+                                                                                Generate QR
+                                                                            </button>
+                                                                        @endcan
                                                                     
-                                                                        <button class="dropdown-item" type="button"
+                                                                        {{-- <button class="dropdown-item" type="button"
                                                                             wire:click="delete({{ $data->id }})">
                                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                                 class="icon me-2 icon-tabler icon-tabler-file-x"
@@ -168,8 +174,7 @@
                                                                                 <path d="M10 12l4 4m0 -4l-4 4"></path>
                                                                             </svg>
                                                                             Delete
-                                                                        </button>
-                                                                        
+                                                                        </button> --}}
                                                                     </div>
                                                                 </div>
                                                             </div>

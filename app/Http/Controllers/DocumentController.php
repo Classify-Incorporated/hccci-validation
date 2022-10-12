@@ -27,12 +27,13 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         $document = Document::create([
-            'document_series_no'    => DocumentService::generate_document_series($request->department),
+            'user_id'               => auth()->user()->id,
+            'document_series_no'    => DocumentService::generate_document_series($request->department, $request->series_no, $request->revision_no),
             'department'            => $request->department,
             'document_type'         => $request->document_type,
-            'document_dated'        => $request->date,
-            'to'                    => $request->to_person,
-            'from'                  => $request->from_person,
+            'document_dated'        => $request->month . ' ' . $request->day . ' ' . $request->year,
+            'to'                    => $request->to,
+            'from'                  => $request->from,
             'prepared_by'           => $request->prepared_by,
             'approved_by'           => $request->approved_by
         ]);

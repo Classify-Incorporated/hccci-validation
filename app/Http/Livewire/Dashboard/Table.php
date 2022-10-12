@@ -12,7 +12,7 @@ class Table extends Component
 
     public function render()
     {
-        $document = Document::where('document_series_no', 'ilike', '%'.$this->search.'%')->paginate(8);
+        $document = Document::where('document_series_no', 'ilike', '%'.$this->search.'%')->orderBy('id', 'desc')->paginate(8);
 
         return view('livewire.dashboard.table',[
             'title'         => 'Documents',

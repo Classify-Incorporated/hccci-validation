@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Document extends Model implements HasMedia
 {
@@ -17,9 +19,21 @@ class Document extends Model implements HasMedia
         'id', 'created_at', 'updated_at'
     ];
 
+    protected $observables = ['deactivateForm'];
+
+    protected $with =[
+        'user',
+    ];
+
     public function isNotActive()
     {
         return ($this->status) ? false : true ;
+    }
+
+    public function deactivate()
+    {
+        $this->update(['status' => false]);
+        $this->fireModelEvent('deactivateForm', false);
     }
 
     /**
@@ -76,5 +90,10 @@ class Document extends Model implements HasMedia
             get: fn ($value) => ucwords($value),
             set: fn ($value) => strtolower($value),
         );
+    }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

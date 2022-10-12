@@ -25,15 +25,25 @@
                 <div class="col-12">
                     <div class="card">
                         <fieldset class="form-fieldset">
-                            <div class="mb-3">
-                                <label class="form-label required">Name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" autocomplete="off"
-                                    wire:model="name">
-                                @error('name')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                            <div class="row g-2 mb-2">
+                                <div class="col-6">
+                                    <label class="form-label required">Department name</label>
+                                    <input type="text" class="form-control @error('department_name') is-invalid @enderror" autocomplete="off"
+                                        wire:model="department_name">
+                                    @error('department_name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label required">Department code</label>
+                                    <input type="text" class="form-control @error('department_code') is-invalid @enderror" autocomplete="off"
+                                        wire:model="department_code">
+                                    @error('department_code')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="">
                                 <button class="btn btn-info" type="submit" wire:click="save">Save</button>
                             </div>
                         </fieldset>

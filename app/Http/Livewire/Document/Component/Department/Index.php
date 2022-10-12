@@ -9,7 +9,8 @@ class Index extends Component
 {
     use WithPagination;
 
-    public $name;
+    public $department_name;
+    public $department_code;
     public $search = '';
 
     public $model = "App\Models\Department";
@@ -27,7 +28,8 @@ class Index extends Component
     public function rules()
     {
         return [
-            'name'          => 'required',
+            'department_name'          => 'required',
+            'department_code'          => 'required',
         ];
     }
 

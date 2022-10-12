@@ -24,20 +24,12 @@ class DocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'control_number'    => 'required',
-            'department_code'   => 'required',
-            'revision_number'   => 'required',
-            'series_number'     => 'required',
-            'number_pages'      => 'required',
-            'number_copies'     => 'required',
-            'document_type'     => 'required',
-            'document_dated'    => 'required',
-            'prepared_by'       => 'required',
-            'approved_by'       => 'required',
-            'to'                => 'required',
-            'from'              => 'required',
-            'department'        => 'required',
-            'status'            => 'required',
+            'department'    => 'required',
+            'document_type' => 'required',
+            'to'            => 'required',
+            'from'          => 'required',
+            'prepared_by'   => 'required',
+            'approved_by'   => 'required',
         ];
     }
 }

@@ -18,4 +18,10 @@ class Show extends Component
     {
         return view('document.show')->layout('layouts.app');
     }
+
+    public function deactivate(Document $id) 
+    {
+        $this->document->deactivate();
+        $this->document->refresh();
+    }
 }
