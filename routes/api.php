@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiDocumentDetailsController;
+use App\Http\Controllers\ApiDepartmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::resource('/api-document', ApiDocumentDetailsController::class);
+Route::resource('/departments', ApiDepartmentController::class);

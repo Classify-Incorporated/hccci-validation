@@ -24,18 +24,17 @@ class ApiDocumentDetails extends FormRequest
     public function rules()
     {
         return [
-            "department_code"       => 'required',
-            "series_number"         => 'required',
-            "number_pages"          => 'required',
-            "number_copies"         => 'required',
-            "document_type"         => 'required',
-            "document_dated"        => 'required',
-            "prepared_by"           => 'required',
-            "approved_by"           => 'required',
-            "to"                    => 'required',
-            "from"                  => 'required',
-            "department"            => 'required',
-            "revision_number"       => 'required',
+            'series_no'                => 'required',
+            'revision_no'              => 'required',
+            'department'               => 'required',
+            'document_type'            => 'required',
+            'month'                    => 'required',
+            'day'                      => 'required',
+            'year'                     => 'required',
+            'to'                       => 'required',
+            'from'                     => 'required',
+            'prepared_by'              => 'required',
+            'approved_by'              => 'required',
         ];
     }
 }

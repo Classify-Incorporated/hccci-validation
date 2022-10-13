@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiDocumentDetails;
-use App\Models\Document;
-use App\Services\DocumentService;
+use App\Http\Requests\ApiDepartment;
+use App\Models\Department;
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class ApiDocumentDetailsController extends Controller
+class ApiDepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +15,7 @@ class ApiDocumentDetailsController extends Controller
      */
     public function index()
     {
-        return Document::all();
+        return response()->json(Department::all());
     }
 
     /**
@@ -37,23 +34,20 @@ class ApiDocumentDetailsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApiDocumentDetails $request)
+    public function store(ApiDepartment $request)
     {
         $validated = $request->validated();
-        $validated['user_id'] = '2';
-        $validated['document_series_no'] = DocumentService::generate_document_series($validated['department'], $validated['series_no'], $validated['revision_no']);
-        $validated['document_dated'] = $validated['month'] . ' ' . $validated['day'] . ' ' . $validated['year'];
 
-        $document = Document::create($validated);
-
-        QrCode::format('png')->size(250)->generate(config('app.url').'/verify/key='.$document->document_series_no, '../public/'.$document->document_series_no.'.png');
-
-        $document->addMedia($document->document_series_no.'.png', 'local')->toMediaCollection('qrcode');
+        $newDepartment = new Department();
+        $newDepartment->id = $validated['id'];
+        $newDepartment->department_name = $validated['department_name'];
+        $newDepartment->department_code = $validated['department_code'];
+        $newDepartment->save();
 
         return response()->json([
-            'success'   => true,
-            'message'   => 'Document submitted successfully.'
-        ], 201);
+            'sucess'        =>      true,
+            'message'       =>      'Department successfully created.'
+        ]);
     }
 
     /**
@@ -98,6 +92,11 @@ class ApiDocumentDetailsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $getRes = Department::find($id);
+        $getRes->delete();
+        return response()->json([
+            'success'       =>      true,
+            'message'       =>      'Department Deleted!'
+        ]);
     }
 }
