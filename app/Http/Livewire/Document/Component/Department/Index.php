@@ -15,6 +15,8 @@ class Index extends Component
 
     public $model = "App\Models\Department";
 
+    protected $listeners = ['refreshComponent' => '$refresh'];
+
     public function render()
     {
         $departments = $this->model::where('department_name', 'ilike', '%'.$this->search.'%')->paginate(8);
@@ -43,5 +45,7 @@ class Index extends Component
         $this->validate();
         $this->model::create($this->validate());
         $this->reset(); // Reset all properties
+
+        $this->emit('refreshComponent');
     }
 }
