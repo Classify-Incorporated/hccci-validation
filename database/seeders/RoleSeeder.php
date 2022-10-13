@@ -30,13 +30,25 @@ class RoleSeeder extends Seeder
             ],
             [
                 'name'  => 'generate qr'
+            ],
+            [
+                'name'  => 'create department'
+            ],
+            [
+                'name'  => 'delete department'
+            ],
+            [
+                'name'  => 'create document type'
+            ],
+            [
+                'name'  => 'delete document type'
             ]
-            
         ];
 
         foreach ($clerk_permission as $permission)
         {
-            Permission::create($permission);
+            $permission = Permission::create($permission);
+            $clerk->givePermissionTo($permission);
         }
 
         $c_level = Role::create(['name' => 'administrator']);
