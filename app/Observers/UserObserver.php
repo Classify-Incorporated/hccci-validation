@@ -6,6 +6,8 @@ use App\Models\User;
 
 class UserObserver
 {
+    public $afterCommit = true;
+
     /**
      * Handle the User "created" event.
      *
@@ -14,16 +16,16 @@ class UserObserver
      */
     public function created(User $user)
     {
-        // activity()
-        // ->performedOn($user)
-        // ->causedBy(auth()->user())
-        // ->event('Created')
-        // ->withProperties([
-        //     'http_method'            => 'POST',
-        //     'Check_url'              => url()->current(),
-        //     'User Agent'             => $_SERVER['HTTP_USER_AGENT']
-        //     ])
-        // ->log('User ' . $user->fullName() .' has been created successfully');
+        activity()
+        ->performedOn($user)
+        ->causedBy(auth()->user())
+        ->event('Created')
+        ->withProperties([
+            'http_method'            => 'POST',
+            'Check_url'              => url()->current(),
+            'User Agent'             => $_SERVER['HTTP_USER_AGENT']
+            ])
+        ->log('User ' . $user->fullName() .' has been created successfully');
     }
 
     /**
@@ -57,7 +59,7 @@ class UserObserver
         activity()
         ->performedOn($user)
         ->causedBy(auth()->user())
-        ->event('Created')
+        ->event('Deleted')
         ->withProperties([
             'http_method'            => 'POST',
             'Check_url'              => url()->current(),

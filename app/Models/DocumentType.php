@@ -9,10 +9,5 @@ class DocumentType extends Model
 {
     use HasFactory;
     
-    protected $guarded = [];
-
-    protected static function boot()
-    {
-        parent::boot();
-    }
+    protected $fillable = ['name'];
 }

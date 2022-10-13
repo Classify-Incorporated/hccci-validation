@@ -17,6 +17,40 @@ class RoleSeeder extends Seeder
     public function run()
     {
 
+        $clerk = Role::create(['name' => 'clerk']);
+        $clerk_permission = [
+            [
+                'name'  => 'create document'
+            ],
+            [
+                'name'  => 'view document'
+            ],
+            [
+                'name'  => 'deactive document'
+            ],
+            [
+                'name'  => 'generate qr'
+            ],
+            [
+                'name'  => 'create department'
+            ],
+            [
+                'name'  => 'delete department'
+            ],
+            [
+                'name'  => 'create document type'
+            ],
+            [
+                'name'  => 'delete document type'
+            ]
+        ];
+
+        foreach ($clerk_permission as $permission)
+        {
+            $permission = Permission::create($permission);
+            $clerk->givePermissionTo($permission);
+        }
+
         $c_level = Role::create(['name' => 'administrator']);
         $user_management_permission = [
             [
@@ -56,7 +90,7 @@ class RoleSeeder extends Seeder
 
         foreach ($user_management_permission as $permission)
         {
-            $permission = Permission::create($permission);
+            Permission::create($permission);
         }
 
         $c_level->givePermissionTo(Permission::all());

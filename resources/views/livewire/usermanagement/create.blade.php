@@ -92,6 +92,16 @@
                                                     including roles and permissions.
                                                 </span>
                                             </label>
+                                            <label class="form-check mb-2">
+                                                <input class="form-check-input @error('roles') is-invalid @enderror"
+                                                    wire:model="roles" value="clerk" type="checkbox">
+                                                <span class="form-check-label">
+                                                    Clerk
+                                                </span>
+                                                <span class="form-check-description">
+                                                    Has the right to create document, generate qr, view document, deactivate document
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
