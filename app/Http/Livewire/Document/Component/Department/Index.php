@@ -7,19 +7,20 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use WithPagination;
-
     public $department_name;
     public $department_code;
     public $search = '';
 
     public $model = "App\Models\Department";
 
-    protected $listeners = ['refreshComponent' => '$refresh'];
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        $departments = $this->model::where('department_name', 'ilike', '%'.$this->search.'%')->paginate(8);
+        $departments = $this->model::where('department_name', 'ilike', '%'.$this->search.'%')->get();
 
         return view('livewire.document.component.department.index', [
             'title'         => 'Departments',
@@ -46,6 +47,6 @@ class Index extends Component
         $this->model::create($this->validate());
         $this->reset(); // Reset all properties
 
-        $this->emit('refreshComponent');
+        session()->flash('success', 'Successfully added.');
     }
 }

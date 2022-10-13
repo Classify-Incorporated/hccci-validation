@@ -7,18 +7,19 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use WithPagination;
-
     public $name;
     public $search = '';
 
     public $model = "App\Models\DocumentType";
 
-    protected $listeners = ['refreshComponent' => '$refresh'];
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        $document = $this->model::where('name', 'ilike', '%'.$this->search.'%')->paginate(8);
+        $document = $this->model::where('name', 'ilike', '%'.$this->search.'%')->get();
 
         return view('livewire.document.component.document-type.index', [
             'title'         => 'Document Types',
@@ -43,6 +44,7 @@ class Index extends Component
         $this->validate();
         $this->model::create($this->validate());
         $this->reset(); // Reset all properties
-        $this->emit('refreshComponent');
+
+        session()->flash('success', 'Successfully added.');
     }
 }
