@@ -23,6 +23,11 @@
         <div class="container-xl">
             <div class="row row-cards">
                 <div class="col-12">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="card">
                         <fieldset class="form-fieldset">
                             <div class="row g-2 mb-2">
@@ -125,7 +130,7 @@
                                 </tbody>
                             </table>
 
-                            @empty(!$departments)
+                            {{-- @empty(!$departments)
                                 <div class="d-flex mt-4">
                                     <ul class="pagination ms-auto">
                                         <li class="page-item {{ $departments->onFirstPage() ? 'disabled' : '' }}">
@@ -155,7 +160,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            @endempty
+                            @endempty --}}
                         </div>
                     </div>
                 </div>

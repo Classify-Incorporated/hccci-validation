@@ -23,6 +23,11 @@
         <div class="container-xl">
             <div class="row row-cards">
                 <div class="col-12">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="card">
                         <fieldset class="form-fieldset">
                             <div class="mb-3">
@@ -112,39 +117,38 @@
                                     @endforelse
                                 </tbody>
                             </table>
-
-                            @empty(!$documents)
-                                <div class="d-flex mt-4">
-                                    <ul class="pagination ms-auto">
-                                        <li class="page-item {{ $documents->onFirstPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $documents->previousPageUrl() }}">
-                                                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <polyline points="15 6 9 12 15 18" />
-                                                </svg>
-                                                prev
-                                            </a>
-                                        </li>
-
-                                        <li class="page-item {{ $documents->hasMorePages() ? '' : 'disabled' }}">
-                                            <a class="page-link" href="{{ $documents->nextPageUrl() }}">
-                                                next
-                                                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <polyline points="9 6 15 12 9 18" />
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            @endempty
                         </div>
+                        {{-- @empty(!$documents)
+                            <div class="d-flex mt-4">
+                                <ul class="pagination ms-auto">
+                                    <li class="page-item {{ $documents->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $documents->previousPageUrl() }}">
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <polyline points="15 6 9 12 15 18" />
+                                            </svg>
+                                            prev
+                                        </a>
+                                    </li>
+
+                                    <li class="page-item {{ $documents->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $documents->nextPageUrl() }}">
+                                            next
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <polyline points="9 6 15 12 9 18" />
+                                            </svg>
+                                        </a>    
+                                    </li>
+                                </ul>
+                            </div>
+                        @endempty --}}
                     </div>
                 </div>
             </div>
