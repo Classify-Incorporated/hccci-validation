@@ -31,9 +31,8 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+   
     Route::get('users', App\Http\Livewire\Usermanagement\Index::class)->name('users');
     Route::get('user/show/{data}', App\Http\Livewire\Usermanagement\Show::class)->name('user.show');
     Route::get('user/create', App\Http\Livewire\Usermanagement\Create::class)->name('user.create');
@@ -44,10 +43,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('user/permission/{user}', [RoleController::class, 'update_permissions'])->name('user.permission.update');
 
     Route::get('user/activity/{data}', App\Http\Livewire\Usermanagement\Activity::class)->name('users.activty');
-    
+
     Route::get('profile/setup', App\Http\Livewire\Profile\Setup::class)->name('profile.setup');
     Route::view('profile/account', 'profile.account')->name('profile.account');
-    
+
     Route::view('activity/log', 'activity.activity-log')->name('activity.log');
     Route::get('activity/details/{activity}', App\Http\Livewire\Log\Activity\Show::class)->name('activity.details');
 
