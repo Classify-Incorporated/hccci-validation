@@ -34,6 +34,13 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+   @yield('style')
+   <link href="{{ asset('asset/custom/dist/css/tabler.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('asset/custom/dist/css/tabler-flags.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('asset/custom/dist/css/tabler-payments.min.css') }}" rel="stylesheet"/>
+    
+    <link href="{{ asset('asset/custom/dist/css/demo.min.css') }}" rel="stylesheet"/>
 </head>
 
 <body>

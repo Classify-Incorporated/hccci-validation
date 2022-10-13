@@ -2,7 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Department;
+use App\Models\Document;
+use App\Models\DocumentType;
 use App\Models\User;
+use App\Observers\DepartmentObserver;
+use App\Observers\DocumentObserver;
+use App\Observers\DocumentTypeObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -43,6 +49,9 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         User::observe(UserObserver::class);
+        Document::observe(DocumentObserver::class);
+        Department::observe(DepartmentObserver::class);
+        DocumentType::observe(DocumentTypeObserver::class);
     }
 
     /**
