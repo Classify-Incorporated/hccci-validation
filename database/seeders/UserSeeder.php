@@ -20,10 +20,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         $admin = User::create([
-            'first_name' => 'Maynard',
-            'last_name' => 'Magallen',
-            'username' => 'mmaynard',
-            'email' => 'admin@maynard.com',
+            'first_name' => 'Admin',
+            'last_name' => 'User',
+            'username' => 'adminuser',
+            'email' => 'admin@hccci.edu.ph',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'first_name' => 'Api User',
             'last_name' => 'API ACOUNT',
             'username' => 'superadmin',
-            'email' => 'super@admin.com',
+            'email' => 'super@hccci.edu.ph',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
