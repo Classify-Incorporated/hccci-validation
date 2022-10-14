@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Models\Activity;
-
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,3 +67,10 @@ Route::middleware(['auth'])->group(function () {
 Route::get('verify/key={data}', [VerifyDocument::class, 'verify_document'])->name('verify.document');
 
 require __DIR__.'/auth.php';
+
+Route::get('test', function () {
+
+    $user = User::where('email', 'tset@gmail.com')->first();
+
+    dd($user->getPermissionsViaRoles());
+});

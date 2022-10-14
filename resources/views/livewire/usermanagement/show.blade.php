@@ -209,7 +209,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-4">
+                {{-- <div class="col-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">Permissions</div>
@@ -220,7 +220,7 @@
                             </dl>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
                     <small class="text-muted">Changing user role might have serious effect on application security. Proceed with caution.</small>
 
                 </div>
-                <div class="col-12 col-md-auto ms-auto d-print-none">
+                {{-- <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
                       <span class="d-none d-sm-inline">
                         <a href="{{ route('user.permission', $user) }}" class="btn btn-outline-warning">
@@ -23,7 +23,7 @@
                         </a>
                       </span>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -46,8 +46,8 @@
                                                     <label class="form-check">
                                                         {{-- type="checkbox" {{ (in_array($role->name, $data->roles->pluck('name')->toArray())) ? 'checked' : '' }} --}}
                                                         <input 
-                                                        value="{{ $role->name }}"
-                                                        name="role[]"
+                                                        value="{{ strtolower($role->name) }}"
+                                                        name="role"
                                                         class="form-check-input" 
                                                         type="checkbox"
                                                         {{ (in_array($role->name, $user->roles->pluck('name')->toArray())) ? 'checked' : '' }}
