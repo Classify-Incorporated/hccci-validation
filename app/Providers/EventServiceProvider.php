@@ -33,9 +33,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
             \App\Listeners\LogActivityListener::class.'@registered',
         ],
-        \Illuminate\Auth\Events\Failed::class => [
-            \App\Listeners\LogActivityListener::class.'@failed',
-        ],
+        // \Illuminate\Auth\Events\Failed::class => [
+        //     \App\Listeners\LogActivityListener::class.'@failed',
+        // ],
         \Illuminate\Auth\Events\PasswordReset::class => [
             \App\Listeners\LogActivityListener::class.'@passwordReset',
         ],
