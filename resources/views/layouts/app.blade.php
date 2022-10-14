@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{ env('APP_NAME') }}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('asset/images/icon.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('asset/images/hccci_logo.png') }}">
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -51,9 +51,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                    <a href=".">
-                        <img src="{{ asset('asset/images/gfi_logo.svg') }}" width="110" height="32" alt="Tabler"
-                            class="navbar-brand-image">
+                    <a href="/" class="row d-flex align-items-center">
+                        <img src="{{ asset('asset/images/hccci_logo.png') }}" width="110" height="32" alt="Tabler"
+                            class="navbar-brand-image"> HCCCI
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">

@@ -1,7 +1,7 @@
 <x-tabler-guest-layout>
     <div class="container-tight py-4">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="{{ asset('asset/images/logo_transparent.png') }}" height="46"
+            <a href="." class="navbar-brand navbar-brand-autodark"><img src="{{ asset('asset/images/hccci_logo.png') }}" height="250"
                     alt=""></a>
         </div>
         <form class="card card-md" action="{{ route('login') }}" method="post" autocomplete="off">
