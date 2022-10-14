@@ -41,7 +41,9 @@ class RoleController extends Controller
     public function update_permissions(Request $request, User $user)
     {   
         // dd($user->syncPermissions($request->role));
-        $user->syncPermissions($request->role);
+        $user->syncPermissions([
+            1   => 'Create Document'
+        ]);
 
         session()->flash('success', $user->fullName() .' permission has been override.');
 
