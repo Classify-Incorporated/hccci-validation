@@ -43,8 +43,6 @@ class RoleController extends Controller
         // dd($user->syncPermissions($request->role));
         $user->syncPermissions($request->role);
 
-        dd($user);
-
         session()->flash('success', $user->fullName() .' permission has been override.');
 
         return redirect()->route('user.show', $user);
