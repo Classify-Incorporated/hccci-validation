@@ -13,11 +13,13 @@ class VerifyDocument extends Controller
 
         $authentic = true;
 
+
+
         try {
 
-            $data = Document::findOrFail($id);
+            // $data = Document::findOrFail($id);
+            $data = Document::where('document_series_no', $id)->get()->first();
 
-            
             return view('verify.index', compact('data', 'authentic'));
 
         } catch (Exception $exception) {
