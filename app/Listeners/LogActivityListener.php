@@ -32,7 +32,7 @@ class LogActivityListener implements ShouldQueue
     public function failed(LaravelEvents\Failed $event)
     {
         $ip = \Request::getClientIp(true);
-        $this->info($event, "User {$event->credentials['email']} login failed from {$ip}", ['email' => $event->credentials['email']]);
+        $this->info($event, "User {($event->credentials['email']) ? $event->credentials['email'] : $event->credentials['username']} login failed from {$ip}", ['email' => ($event->credentials['email']) ? $event->credentials['email'] : $event->credentials['username']]);
     }
 
     public function passwordReset(LaravelEvents\PasswordReset $event)
