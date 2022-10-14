@@ -30,9 +30,9 @@ class UserSeeder extends Seeder
         ]);
 
         $apiUser = User::create([
-            'first_name' => 'Api User',
-            'last_name' => 'API ACOUNT',
-            'username' => 'superadmin',
+            'first_name' => 'Api',
+            'last_name' => 'User',
+            'username' => 'apiuser',
             'email' => 'super@hccci.edu.ph',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
