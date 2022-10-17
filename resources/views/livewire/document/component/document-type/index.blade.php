@@ -23,17 +23,12 @@
         <div class="container-xl">
             <div class="row row-cards">
                 <div class="col-12">
-                    @if (session()->has('success'))
-                        <div class="alert alert-success" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     <div class="card">
                         <fieldset class="form-fieldset">
                             <div class="mb-3">
                                 <label class="form-label required">Name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" autocomplete="off"
-                                    wire:model="name">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    autocomplete="off" wire:model="name">
                                 @error('name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -43,16 +38,25 @@
                             </div>
                         </fieldset>
                         <div class="table-responsive">
-                            
+
                             <table class="table table-vcenter card-table table-striped">
                                 <div class="p-3">
                                     <label class="form-label">Search Type</label>
                                     <div class="input-icon mb-3">
-                                      <input type="search" wire:model="search" class="form-control" placeholder="Search…">
-                                      <span class="input-icon-addon">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
-                                      </span>
+                                        <input type="search" wire:model="search" class="form-control"
+                                            placeholder="Search…">
+                                        <span class="input-icon-addon">
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/search -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                stroke="currentColor" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <circle cx="10" cy="10" r="7"></circle>
+                                                <line x1="21" y1="21" x2="15" y2="15">
+                                                </line>
+                                            </svg>
+                                        </span>
                                     </div>
                                 </div>
                                 <thead>
@@ -99,21 +103,21 @@
                                             </td>
                                         </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="4">
-                                            <div class="container-xl d-flex flex-column justify-content-center">
-                                                <div class="empty">
-                                                    <div class="empty-img"><img
-                                                            src="{{ asset('asset/images/Tasks.svg') }}" height="128"
-                                                            alt="">
+                                        <tr>
+                                            <td colspan="4">
+                                                <div class="container-xl d-flex flex-column justify-content-center">
+                                                    <div class="empty">
+                                                        <div class="empty-img"><img
+                                                                src="{{ asset('asset/images/Tasks.svg') }}"
+                                                                height="128" alt="">
+                                                        </div>
+                                                        <p class="empty-subtitle text-muted">
+                                                            Let's start adding your document type.
+                                                        </p>
                                                     </div>
-                                                    <p class="empty-subtitle text-muted">
-                                                        Let's start adding your document type.
-                                                    </p>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -144,11 +148,14 @@
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <polyline points="9 6 15 12 9 18" />
                                             </svg>
-                                        </a>    
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         @endempty --}}
+                        <div class="d-flex align-items-center ms-auto mt-3">
+                            {{ $documents->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

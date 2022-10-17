@@ -7,11 +7,15 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
     public $department_name;
     public $department_code;
     public $search = '';
 
     public $model = "App\Models\Department";
+
+    protected $paginationTheme = 'bootstrap';
 
     public function updatingSearch()
     {
@@ -20,7 +24,8 @@ class Index extends Component
 
     public function render()
     {
-        $departments = $this->model::where('department_name', 'ilike', '%'.$this->search.'%')->get();
+        $departments = $this->model::where('department_name', 'ilike', '%'.$this->search.'%')
+                                    ->paginate(10);
 
         return view('livewire.document.component.department.index', [
             'title'         => 'Departments',
@@ -39,6 +44,10 @@ class Index extends Component
     public function delete($id)
     {
         $this->model::find($id)->delete();
+
+        $this->dispatchBrowserEvent('toastr', [
+            'type' => 'info',  'message' => "Record Deleted."
+        ]);
     }
 
     public function save()
@@ -47,6 +56,10 @@ class Index extends Component
         $this->model::create($this->validate());
         $this->reset(); // Reset all properties
 
-        session()->flash('success', 'Successfully added.');
+        // session()->flash('success', 'Successfully added.');
+
+        $this->dispatchBrowserEvent('toastr', [
+            'type' => 'success',  'message' => 'Successfully added.'
+        ]);
     }
 }

@@ -25,22 +25,22 @@
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0- 
-    alpha/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-
+    alpha/css/bootstrap.css"
+        rel="stylesheet">
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 
-    <link rel="stylesheet" type="text/css" 
-    href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @yield('style')
+    <link href="{{ asset('asset/custom/dist/css/tabler.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('asset/custom/dist/css/tabler-flags.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('asset/custom/dist/css/tabler-payments.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('asset/custom/dist/css/demo.min.css') }}" rel="stylesheet" />
 
-   @yield('style')
-   <link href="{{ asset('asset/custom/dist/css/tabler.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('asset/custom/dist/css/tabler-flags.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('asset/custom/dist/css/tabler-payments.min.css') }}" rel="stylesheet"/>
-    
-    <link href="{{ asset('asset/custom/dist/css/demo.min.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('asset/js/jquery-3.6.1.min.js') }}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
 <body>
@@ -52,8 +52,8 @@
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <a href="/" class="row d-flex align-items-center">
-                        <img src="{{ asset('asset/images/hccci_logo.png') }}" width="110" height="32" alt="Tabler"
-                            class="navbar-brand-image"> HCCCI
+                        <img src="{{ asset('asset/images/hccci_logo.png') }}" width="110" height="32"
+                            alt="Tabler" class="navbar-brand-image"> HCCCI
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
@@ -126,7 +126,7 @@
         </header>
         @include('layouts.navigation')
 
-        
+
 
         <div class="page-wrapper">
             {{ $slot }}
@@ -137,6 +137,14 @@
     <script src="{{ asset('asset/images/lord-icon/lord-icon-dependency.js') }}"></script>
     <script>
         Livewire.onPageExpired((response, message) => {})
+
+        window.addEventListener('toastr', event => {
+            toastr[event.detail.type](event.detail.message,
+                event.detail.title ?? ''), toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
     </script>
     @yield('script')
 </body>
