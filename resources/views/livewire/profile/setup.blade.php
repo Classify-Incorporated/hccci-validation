@@ -2,14 +2,14 @@
     <div class="container-tight py-4">
         <div class="text-center mb-4">
             <a href="." class="navbar-brand navbar-brand-autodark"><img
-                    src="{{ asset('asset/images/logo_transparent.png') }}" height="36" alt=""></a>
+                    src="{{ asset('asset/images/' . env('APP_LOGO', 'logo.png')) }}" height="150" alt="{{ config('app.name') }}"></a>
         </div>
         <form wire:submit.prevent="submit">
             <div class="card card-md">
                 <div class="card-body text-center py-4 p-sm-5">
                     <img src="{{ asset('asset/custom/static/illustrations/undraw_sign_in_e6hj.svg') }}" height="128"
                         class="mb-n2" height="120" alt="">
-                    <h1 class="mt-5">Welcome to Gensan Feedmill, Inc.</h1>
+                    <h1 class="mt-5">Welcome to {{ config('app.name') }}</h1>
                     <p class="text-muted">Let's finish setting up your account</p>
                 </div>
                 {{-- <div class="hr-text hr-text-center hr-text-spaceless">your data</div> --}}

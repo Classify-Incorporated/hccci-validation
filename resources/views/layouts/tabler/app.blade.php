@@ -17,6 +17,10 @@
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-
+    alpha/css/bootstrap.css"
+        rel="stylesheet">
+
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 
 
@@ -51,7 +55,7 @@
                 <h1 class="navbar-brand d-none-navbar-horizontal pe-0 pe-md-3">
                     <a href="/" class="row d-flex align-items-center">
                         <img src="{{ asset('asset/images/' . env('APP_LOGO', 'logo.png')) }}" width="110" height="32"
-                            alt="{{ config('app.name') }}" class="navbar-brand-image"> {{ config('app.name') }}
+                            alt="{{ config('app.name') }}" class="navbar-brand-image"> {{ env('APP_SHORT_NAME', config('app.name')) }}
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
