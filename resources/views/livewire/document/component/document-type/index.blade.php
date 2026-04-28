@@ -39,7 +39,7 @@
                         </fieldset>
                         <div class="table-responsive">
 
-                            <table class="table table-vcenter card-table table-striped">
+                            <table class="table table-vcenter card-table">
                                 <div class="p-3">
                                     <label class="form-label">Search Type</label>
                                     <div class="input-icon mb-3">

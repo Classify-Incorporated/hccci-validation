@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>{{ $code }}</title>
+    <link rel="icon" href="{{ asset('asset/images/' . env('APP_LOGO', 'logo.png')) }}" type="image/png">
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
