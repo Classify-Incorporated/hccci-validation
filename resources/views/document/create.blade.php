@@ -30,10 +30,14 @@
                                 @csrf
 
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label">Series Number</label>
+                                    <label class="col-2 col-form-label required">Series Number</label>
                                     <div class="col">
-                                        <input type="text" class="form-control" value="{{ $nextSequenceFormatted }}" disabled>
-                                        <small class="text-muted">This is the next available sequence number.</small>
+                                        <input type="number" name="series_no" class="form-control" 
+                                            placeholder="Enter number (e.g., 001)" 
+                                            value="{{ old('series_no') }}" required>
+                                        @error('series_no')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
 

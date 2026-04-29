@@ -33,40 +33,48 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validation (Highly Recommended)
+        // 1. Validation
         $request->validate([
             'department'  => 'required',
+            'series_no'   => 'required|numeric',
             'revision_no' => 'required|numeric',
         ]);
 
-        // 2. Generate series using the updated Service (only pass 2 arguments)
-        $seriesNo = DocumentService::generate_document_series($request->department, $request->revision_no);
+        try {
+            // 2. Generate series
+            $seriesNo = DocumentService::generate_document_series(
+                $request->department, 
+                $request->series_no, 
+                $request->revision_no
+            );
 
-        // 3. Create the document
-        $document = Document::create([
-            'user_id'               => auth()->id(),
-            'document_series_no'    => $seriesNo, // Use the generated series
-            'department'            => $request->department,
-            'document_type'         => $request->document_type,
-            'document_dated'        => $request->month . ' ' . $request->day . ' ' . $request->year,
-            'to'                    => $request->to,
-            'from'                  => $request->from,
-            'prepared_by'           => $request->prepared_by,
-            'approved_by'           => $request->approved_by
-        ]);
+            // 3. Create Record
+            $document = Document::create([
+                'user_id'               => auth()->id(),
+                'document_series_no'    => $seriesNo,
+                'department'            => $request->department,
+                'document_type'         => $request->document_type,
+                'document_dated'        => $request->month . ' ' . $request->day . ' ' . $request->year,
+                'to'                    => $request->to,
+                'from'                  => $request->from,
+                'prepared_by'           => $request->prepared_by,
+                'approved_by'           => $request->approved_by
+            ]);
 
-        // 4. FIX: Activity Log (This prevents the 'Array offset on null' error)
-        activity()
-            ->performedOn($document)
-            ->causedBy(auth()->user()) 
-            ->log("Document {$seriesNo} has been created successfully");
+            // 4. FIX: Log activity with 'causedBy' to prevent ViewException
+            activity()
+                ->performedOn($document)
+                ->causedBy(auth()->user()) 
+                ->log("Document {$seriesNo} created");
 
-        // 5. Generate QR
-        QrCode::format('png')->size(250)->generate(config('app.url').'/verify/key='.$seriesNo, '../public/'.$seriesNo.'.png');
+            // 5. QR Code
+            QrCode::format('png')->size(250)->generate(config('app.url').'/verify/key='.$seriesNo, '../public/'.$seriesNo.'.png');
+            $document->addMedia($seriesNo.'.png', 'local')->toMediaCollection('qrcode');
 
-        // 6. Media collection
-        $document->addMedia($seriesNo.'.png', 'local')->toMediaCollection('qrcode');
+            return redirect()->route('dashboard')->with('success', 'Document created!');
 
-        return redirect()->route('dashboard')->with('success', 'Document created successfully!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['series_no' => $e->getMessage()])->withInput();
+        }
     }
 }
