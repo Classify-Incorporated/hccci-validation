@@ -1,55 +1,28 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\Department;
 use App\Models\Document;
 
 class DocumentService
 {
-    
-    public static function generate_document_series($department, $series_no, $revision_no) 
+    /**
+     * Generates series: [3-digit-seq][DeptCode][2-digit-rev][Year]
+     */
+    public static function generate_document_series($department_name, $revision_no) 
     {
+        $department = Department::where('department_name', $department_name)->first();
+        $dept_code = $department ? $department->department_code : 'UNK';
 
-        $count_document_produce = $series_no;
-        $get_department_code = Department::where('department_name', $department)->select('department_code')->first();
+        // Get the latest document of this year to calculate the next sequence
+        $latest = Document::whereYear('created_at', date('Y'))->orderBy('id', 'desc')->first();
+        $nextSequence = $latest ? ((int)substr($latest->document_series_no, 0, 3) + 1) : 1;
 
-        // Generate Document Series 
-        $control_number = sprintf("%03d", $count_document_produce + 1);
-        $department_code = $get_department_code->department_code;
-        $series_number = date('Y');
+        $control_number = sprintf("%03d", $nextSequence);
+        $revision = sprintf("%02d", (int)$revision_no);
+        $year = date('Y');
 
-        $document_series = $control_number . $department_code . $revision_no .$series_number;
-
-        return $document_series;
+        return $control_number . $dept_code . $revision . $year;
     }
-
-    // Old Method
-    // public static function generate_document_series($department, $series_no, $revision_no) 
-    // {
-    //     $revision_number = -1;
-
-    //     do {
-
-    //         $count_document_produce = $series_no
-    //         $get_department_code = Department::where('department_name', $department)->select('department_code')->first();
-
-    //         // Generate Document Series 
-    //         $control_number = sprintf("%03d", $count_document_produce + 1);
-    //         $department_code = $get_department_code->department_code;
-    //         $revision_number++;
-    //         $series_number = date('Y');
-
-    //         $document_series = $control_number . $department_code . $revision_number .$series_number;
-
-    //     } while (self::validate_document_series($document_series));
-
-    //     return $document_series;
-    // }
-
-    // public static function validate_document_series($document_series)
-    // {
-    //     $data = Document::where('document_series_no', $document_series)->first();
-
-    //     return ($data) ? true : false;
-    // }
 }
