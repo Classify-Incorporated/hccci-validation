@@ -29,9 +29,9 @@
                         </span> --}}
                     </label>
                     <div class="input-group input-group-flat">
-                        <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off">
+                        <input type="password" name="password" id="password-input" class="form-control" placeholder="Password" autocomplete="off">
                         <span class="input-group-text">
-                            <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip">
+                            <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip" onclick="event.preventDefault(); var input = document.getElementById('password-input'); var icon = this; if(input.type === 'password'){ input.type = 'text'; icon.title = 'Hide password'; } else { input.type = 'password'; icon.title = 'Show password'; }">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"

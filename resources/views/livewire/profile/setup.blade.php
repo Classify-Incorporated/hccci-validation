@@ -1,7 +1,7 @@
 <div class="page page-center">
     <div class="container-tight py-4">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img
+            <a href="." class="navbar-brand"><img
                     src="{{ asset('asset/images/' . env('APP_LOGO', 'logo.png')) }}" height="150" alt="{{ config('app.name') }}"></a>
         </div>
         <form wire:submit.prevent="submit">
