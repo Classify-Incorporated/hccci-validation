@@ -21,14 +21,31 @@ class DocumentController extends Controller
             return DocumentType::select('name')->get();
         });
 
-        return view('document.create', compact('department_lists', 'document_types'));
+        // --- NEW LOGIC START ---
+        // Calculate the next sequence number for the view
+        $latestDoc = Document::whereYear('created_at', date('Y'))->orderBy('id', 'desc')->first();
+        $nextSequence = $latestDoc ? ((int)substr($latestDoc->document_series_no, 0, 3) + 1) : 1;
+        $nextSequenceFormatted = sprintf("%03d", $nextSequence);
+        // --- NEW LOGIC END ---
+
+        return view('document.create', compact('department_lists', 'document_types', 'nextSequenceFormatted'));
     }
 
     public function store(Request $request)
     {
+        // 1. Validation (Highly Recommended)
+        $request->validate([
+            'department'  => 'required',
+            'revision_no' => 'required|numeric',
+        ]);
+
+        // 2. Generate series using the updated Service (only pass 2 arguments)
+        $seriesNo = DocumentService::generate_document_series($request->department, $request->revision_no);
+
+        // 3. Create the document
         $document = Document::create([
-            'user_id'               => auth()->user()->id,
-            'document_series_no'    => DocumentService::generate_document_series($request->department, $request->series_no, $request->revision_no),
+            'user_id'               => auth()->id(),
+            'document_series_no'    => $seriesNo, // Use the generated series
             'department'            => $request->department,
             'document_type'         => $request->document_type,
             'document_dated'        => $request->month . ' ' . $request->day . ' ' . $request->year,
@@ -38,13 +55,18 @@ class DocumentController extends Controller
             'approved_by'           => $request->approved_by
         ]);
 
-        // Save to public folder
-        // QrCode::format('png')->merge('\public\asset\images\icon.png')->size(250)->generate(config('app.url').'/verify/key='.$document->document_series_no, '../public/'.$document->document_series_no.'.png');
-        QrCode::format('png')->size(250)->generate(config('app.url').'/verify/key='.$document->document_series_no, '../public/'.$document->document_series_no.'.png');
+        // 4. FIX: Activity Log (This prevents the 'Array offset on null' error)
+        activity()
+            ->performedOn($document)
+            ->causedBy(auth()->user()) 
+            ->log("Document {$seriesNo} has been created successfully");
 
-        // Move the save qr code image to storage disk 
-        $document->addMedia($document->document_series_no.'.png', 'local')->toMediaCollection('qrcode');
+        // 5. Generate QR
+        QrCode::format('png')->size(250)->generate(config('app.url').'/verify/key='.$seriesNo, '../public/'.$seriesNo.'.png');
 
-        return redirect()->route('dashboard');
+        // 6. Media collection
+        $document->addMedia($seriesNo.'.png', 'local')->toMediaCollection('qrcode');
+
+        return redirect()->route('dashboard')->with('success', 'Document created successfully!');
     }
 }

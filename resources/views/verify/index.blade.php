@@ -18,9 +18,9 @@
                                 <h4>Date of Issue</h4>
                                 <p>{{ $data->created_at->format('F d, Y') }}</p>
                                 <h4>Type</h4>
-                                <p>Letter</p>
-                                <h4>Designation</h4>
-                                <p>Safety and Security</p>
+                                <p>{{ $data->document_type ?? '' }}</p>
+                                <h4>Department</h4>
+                                <p>{{ $data->department ?? '' }}</p>
                             </div>
                         </div>
                     </div>
